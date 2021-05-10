@@ -1,7 +1,4 @@
-  
-data "aws_availability_zones" "azs" {
 
-}
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -79,15 +76,12 @@ resource "aws_subnet" "private1" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "10.0.3.0/24"
 
-  availability_zone = data.aws_availability_zones.azs.names[0]
-
 }
 
 resource "aws_subnet" "private2" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "10.0.4.0/24"
 
-  availability_zone = data.aws_availability_zones.azs.names[1]
 
 
 }
@@ -95,7 +89,7 @@ resource "aws_subnet" "private2" {
 resource "aws_subnet" "private3" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.5.0/24"
-  availability_zone = data.aws_availability_zones.azs.names[2]
+  
 
 
 }
