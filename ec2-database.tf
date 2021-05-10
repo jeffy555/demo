@@ -19,9 +19,13 @@ resource "aws_launch_configuration" "launchme" {
   image_id      = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   user_data = file("userdata.sh")
-  vpc_zone_identifier = [aws]
+  
 }
 
+resource "aws_placement_group" "test" {
+  name     = "test"
+  strategy = "cluster"
+}
 
 resource "aws_autoscaling_group" "bar" {
   name                      = "autoscale"
@@ -33,7 +37,8 @@ resource "aws_autoscaling_group" "bar" {
   force_delete              = true
   placement_group           = aws_placement_group.test.id
   launch_configuration      = aws_launch_configuration.launchme.name
-  vpc_zone_identifier       = [aws_subnet.example1.id, aws_subnet.example2.id]
+  vpc_zone_identifier = [aws_subnet.public1.id, aws_subnet.public2.id]
+ }
 
   
   
