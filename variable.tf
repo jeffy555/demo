@@ -9,3 +9,7 @@ variable password {
 variable dbname {
   description = "db name"
 }
+variable stack {
+  description = "this is name for tags"
+  default     = "terraform"
+}
