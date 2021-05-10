@@ -16,7 +16,7 @@ resource "aws_db_instance" "mysql" {
 
 resource "aws_launch_configuration" "launchme" {
   name          = "web_config"
-  image_id      = "ami-0d563aeddd4be7fff"
+  image_id      = "ami-0ee02acd56a52998e"
   instance_type = "t2.micro"
   user_data = <<-EOF
 #!/bin/bash
