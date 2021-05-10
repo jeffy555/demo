@@ -6,6 +6,7 @@ resource "aws_vpc" "vpc" {
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
+  
 
 }
 
@@ -19,7 +20,7 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_eip" "eip" {
 
   vpc = true
-
+ depends_on = [aws_internet_gateway.igw]
 }
 
 
@@ -98,16 +99,11 @@ resource "aws_db_subnet_group" "mysql" {
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/24"
-
+  map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "public2" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "10.0.2.0/24"
-
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
+  map_public_ip_on_launch = true
 }
