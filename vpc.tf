@@ -17,6 +17,14 @@ resource "aws_nat_gateway" "nat" {
 
 }
 
+resource "aws_eip" "eip" {
+
+  vpc = true
+
+  tags = {
+    Name = "${var.stack}-nat-ip"
+  }
+}
 
 
 resource "aws_route_table" "private" {
