@@ -3,9 +3,6 @@ resource aws_security_group "mysql" {
   description = "managed by terrafrom for db servers"
   vpc_id      = aws_vpc.vpc.id
 
-  tags = {
-    Name = "${var.stack}-DBSG"
-  }
 
   ingress {
     protocol        = "tcp"
@@ -26,10 +23,6 @@ resource aws_security_group "web" {
   name        = "${var.stack}-webSG"
   description = "This is for ${var.stack}s web servers security group"
   vpc_id      = "${aws_vpc.vpc.id}"
-
-  tags = {
-    Name = "${var.stack}-webSG"
-  }
 
   ingress {
     protocol    = "tcp"
