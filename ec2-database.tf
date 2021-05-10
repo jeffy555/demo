@@ -14,25 +14,27 @@ resource "aws_db_instance" "mysql" {
 }
 
 
-resource "aws_instance" "ec2" {
-  ami           = data.aws_ami.ubuntu.id
+resource "aws_launch_configuration" "launchme" {
+  name          = "web_config"
+  image_id      = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  user_data = file("userdata.sh")
+  vpc_zone_identifier = [aws]
+}
 
-  depends_on = [
-    aws_db_instance.mysql,
-  ]
 
-  key_name                    = "Session1"
-  vpc_security_group_ids      = [aws_security_group.web.id]
-  subnet_id                   = aws_subnet.public1.id
-  associate_public_ip_address = true
+resource "aws_autoscaling_group" "bar" {
+  name                      = "autoscale"
+  max_size                  = 5
+  min_size                  = 2
+  health_check_grace_period = 300
+  health_check_type         = "ELB"
+  desired_capacity          = 2
+  force_delete              = true
+  placement_group           = aws_placement_group.test.id
+  launch_configuration      = aws_launch_configuration.launchme.name
+  vpc_zone_identifier       = [aws_subnet.example1.id, aws_subnet.example2.id]
 
-  user_data = file("files/userdata.sh")
-
-  tags = {
-    Name = "EC2 Instance"
-  }
-  
   
   
   data "aws_ami" "ubuntu" {
