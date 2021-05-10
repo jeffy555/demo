@@ -1,17 +1,10 @@
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name = "${var.stack}-vpc"
-  }
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
-
-  tags = {
-    Name = "${var.stack}-igw"
-  }
 }
 
 resource "aws_nat_gateway" "nat" {
