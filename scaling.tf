@@ -12,11 +12,6 @@ resource "aws_db_instance" "mysql" {
   db_subnet_group_name   = aws_db_subnet_group.mysql.name
   skip_final_snapshot    = true
   
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
 }
 
 
@@ -49,10 +44,5 @@ resource "aws_autoscaling_group" "bar" {
   launch_configuration      = aws_launch_configuration.launchme.name
   vpc_zone_identifier = [aws_subnet.public1.id, aws_subnet.public2.id]
   
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
  }
 
