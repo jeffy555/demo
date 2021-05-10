@@ -19,6 +19,7 @@ resource "aws_launch_configuration" "launchme" {
   name          = "web_config"
   image_id      = "ami-0ee02acd56a52998e"
   instance_type = "t2.medium"
+  security_groups = [aws_security_group.web.id]
   user_data = <<-EOF
 #!/bin/bash
 sudo yum update -y 
