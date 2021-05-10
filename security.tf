@@ -31,12 +31,6 @@ resource aws_security_group "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    protocol    = "icmp"
-    from_port   = -1
-    to_port     = -1
-    cidr_blocks = [aws_vpc.vpc.cidr_block]
-  }
 
   ingress {
     protocol    = "tcp"
