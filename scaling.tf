@@ -32,11 +32,6 @@ echo “<?php phpinfo(); ?>” > /var/www/html/phpinfo.php
 EOF
 }
 
-resource "aws_placement_group" "test" {
-  name     = "test"
-  strategy = "cluster"
-}
-
 resource "aws_autoscaling_group" "bar" {
   name                      = "autoscale"
   max_size                  = 5
