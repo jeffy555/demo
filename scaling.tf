@@ -17,7 +17,7 @@ resource "aws_db_instance" "mysql" {
 resource "aws_launch_configuration" "launchme" {
   name          = "web_config"
   image_id      = "ami-0ee02acd56a52998e"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   user_data = <<-EOF
 #!/bin/bash
 sudo yum update -y 
