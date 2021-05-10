@@ -2,33 +2,17 @@
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
   
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
-
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
-  
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
+
 }
 
 resource "aws_nat_gateway" "nat" {
   subnet_id     = aws_subnet.public1.id
   allocation_id = aws_eip.eip.id
-  
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
+ 
 
 }
 
@@ -36,12 +20,6 @@ resource "aws_eip" "eip" {
 
   vpc = true
 
-  
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
 }
 
 
@@ -53,11 +31,6 @@ resource "aws_route_table" "private" {
     gateway_id = aws_nat_gateway.nat.id
   }
 
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
 }
 
 resource "aws_route_table" "public" {
@@ -68,12 +41,6 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.igw.id
   }
   
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
-
 }
 
 resource "aws_route_table_association" "private1" {
@@ -113,16 +80,11 @@ resource "aws_subnet" "private1" {
 resource "aws_subnet" "private2" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "10.0.4.0/24"
-
-
-
 }
 
 resource "aws_subnet" "private3" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.5.0/24"
-  
-
 
 }
 
@@ -137,12 +99,6 @@ resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/24"
 
-
-  tags = {
-    
-    Name = "Jefferson-demo"
-    
-    }
 }
 
 resource "aws_subnet" "public2" {
