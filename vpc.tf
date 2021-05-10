@@ -18,9 +18,6 @@ resource "aws_nat_gateway" "nat" {
   subnet_id     = aws_subnet.public1.id
   allocation_id = aws_eip.eip.id
 
-  tags = {
-    Name = "${var.stack}-nat"
-  }
 }
 
 
@@ -33,9 +30,6 @@ resource "aws_route_table" "private" {
     gateway_id = aws_nat_gateway.nat.id
   }
 
-  tags = {
-    Name = "${var.stack}-private"
-  }
 }
 
 resource "aws_route_table" "public" {
@@ -46,9 +40,6 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Name = "${var.stack}-public"
-  }
 }
 
 resource "aws_route_table_association" "private1" {
@@ -85,9 +76,6 @@ resource "aws_subnet" "private1" {
 
   availability_zone = data.aws_availability_zones.azs.names[0]
 
-  tags = {
-    Name = "${var.stack}-private-1"
-  }
 }
 
 resource "aws_subnet" "private2" {
@@ -96,9 +84,7 @@ resource "aws_subnet" "private2" {
 
   availability_zone = data.aws_availability_zones.azs.names[1]
 
-  tags = {
-    Name = "${var.stack}-private-2"
-  }
+
 }
 
 resource "aws_subnet" "private3" {
@@ -106,18 +92,13 @@ resource "aws_subnet" "private3" {
   cidr_block        = "10.0.5.0/24"
   availability_zone = data.aws_availability_zones.azs.names[2]
 
-  tags = {
-    Name = "${var.stack}-private-3"
-  }
+
 }
 
 resource "aws_db_subnet_group" "mysql" {
   name       = "${var.stack}-subngroup"
   subnet_ids = [aws_subnet.private1.id, aws_subnet.private2.id, aws_subnet.private3.id]
 
-  tags = {
-    Name = "${var.stack}-subnetGroup"
-  }
 }
 
 
@@ -126,9 +107,7 @@ resource "aws_subnet" "public1" {
   cidr_block        = "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.azs.names[0]
 
-  tags = {
-    Name = "${var.stack}-public-1"
-  }
+
 }
 
 resource "aws_subnet" "public2" {
@@ -137,7 +116,4 @@ resource "aws_subnet" "public2" {
 
   availability_zone = data.aws_availability_zones.azs.names[1]
 
-  tags = {
-    Name = "${var.stack}-public-2"
-  }
 }
